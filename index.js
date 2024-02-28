@@ -9,12 +9,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = process.env.PORT || 3030;
 
+import path from "path"
+
 app.use(express.urlencoded({extended: true}));
-// app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.get("/", (req, res) => {
   //generates a diffrent file from index1.js using this command..
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 app.post("/submit",(req,res)=>{
