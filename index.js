@@ -7,9 +7,10 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3030;
 
 app.use(express.urlencoded({extended: true}));
+// app.use(express.json());
 
 app.get("/", (req, res) => {
   //generates a diffrent file from index1.js using this command..
@@ -34,7 +35,6 @@ function generateQr(text){
     const qrCodeValue = qrcode.image(text, { type: 'png' });
     // Create a txt file to save the user input
     fs.writeFileSync('user_input.txt', `User entered URL: ${text}`);
-
     // Save the QR code as an PNG file
     qrCodeValue.pipe(fs.createWriteStream('qrcode.png'));
 }
